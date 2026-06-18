@@ -1,16 +1,11 @@
 import Link from "next/link";
 import { 
-  BookOpen, 
   ArrowRight, 
   TrendingUp, 
   BarChart3, 
-  PieChart, 
-  Calendar, 
   Layers, 
-  DollarSign, 
   Award, 
   Percent, 
-  ShieldCheck, 
   FileSpreadsheet,
   Activity
 } from "lucide-react";
