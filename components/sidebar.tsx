@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "import Link from 'next/link'"; // Wait, let's keep the correct imports.
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen } from "lucide-react";
