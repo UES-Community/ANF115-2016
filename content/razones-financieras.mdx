@@ -1,0 +1,142 @@
+---
+title: "Razones e Indicadores Financieros"
+description: "Estudio detallado de los ratios financieros para medir liquidez, actividad, endeudamiento y rentabilidad."
+section: analisis-estados
+order: 5
+---
+
+# Razones e Indicadores Financieros
+
+Las **razones financieras** son coeficientes calculados a partir de los datos de los estados financieros. Nos permiten realizar comparaciones significativas entre diferentes cuentas dentro de la empresa, con respecto a competidores o promedios industriales.
+
+Las razones financieras se clasifican tradicionalmente en cuatro categorías operativas principales:
+
+---
+
+## 1. Razones de Liquidez
+Miden la capacidad de la empresa para cumplir con sus obligaciones financieras a corto plazo a medida que vencen.
+
+### Razón Circulante (Liquidez Corriente)
+Mide la cobertura de los activos circulantes frente a los pasivos circulantes. Un valor de `2.0x` suele considerarse adecuado en muchas industrias.
+
+$$\text{Razón Circulante} = \frac{\text{Activo Circulante}}{\text{Pasivo Circulante}}$$
+
+### Prueba de Ácido (Liquidez Rápida)
+Excluye los inventarios de los activos circulantes debido a que suelen ser los activos corrientes de más lenta recuperación en efectivo.
+
+$$\text{Prueba de Ácido} = \frac{\text{Activo Circulante} - \text{Inventarios}}{\text{Pasivo Circulante}}$$
+
+---
+
+## 2. Razones de Actividad (Eficiencia Operativa)
+Miden la velocidad con la que diversas cuentas de activos se convierten en ventas o efectivo.
+
+### Rotación de Inventarios
+Indica el número de veces que se renueva el inventario de la empresa durante el año.
+
+$$\text{Rotación de Inventarios} = \frac{\text{Costo de Ventas}}{\text{Inventario Promedio}}$$
+
+### Período Promedio de Cobro (PPC)
+Mide los días promedio que tardan los clientes en pagar sus facturas.
+
+$$\text{PPC} = \frac{\text{Cuentas por Cobrar}}{\text{Ventas Diarias Promedio}} = \frac{\text{Cuentas por Cobrar}}{\text{Ventas Anuales} / 365}$$
+
+---
+
+## 3. Razones de Endeudamiento (Solvencia)
+Miden la proporción de activos totales financiados por los acreedores de la empresa frente a los recursos de los propietarios.
+
+### Índice de Endeudamiento (Apalancamiento)
+Mide la proporción del total de activos financiada con deuda.
+
+$$\text{Índice de Endeudamiento} = \frac{\text{Pasivo Total}}{\text{Activo Total}}$$
+
+### Razón de Cobertura de Intereses
+Mide la capacidad de la empresa para pagar los intereses contractuales de sus deudas a partir de su utilidad operativa.
+
+$$\text{Cobertura de Intereses} = \frac{\text{Utilidad Operativa (EBIT)}}{\text{Gastos Financieros (Intereses)}}$$
+
+---
+
+## 4. Razones de Rentabilidad
+Miden los retornos generados por la empresa con respecto a sus ventas, activos o capital social.
+
+### Margen de Utilidad Operativa
+Mide el porcentaje de cada dólar de ventas que queda después de cubrir todos los costos y gastos operativos.
+
+$$\text{Margen Operativo} = \frac{\text{Utilidad Operativa (EBIT)}}{\text{Ventas Netas}}$$
+
+### Retorno sobre los Activos (ROA)
+Mide la eficacia general de la administración para generar utilidades con sus activos disponibles.
+
+$$\text{ROA} = \frac{\text{Utilidad Neta}}{\text{Activo Total}}$$
+
+### Retorno sobre el Patrimonio (ROE)
+Mide el rendimiento obtenido sobre la inversión de los accionistas comunes.
+
+$$\text{ROE} = \frac{\text{Utilidad Neta}}{\text{Capital Contable Común}}$$
+
+<Callout type="info" title="Análisis de Du Pont">
+  El análisis Du Pont conecta el ROA y el ROE mediante la fórmula multiplicativa:
+  $$\text{ROE} = \text{Margen de Utilidad} \times \text{Rotación de Activos} \times \text{Multiplicador de Apalancamiento}$$
+  Esto permite identificar si la rentabilidad de los accionistas se debe a una alta eficiencia operativa, un excelente volumen de ventas o un elevado endeudamiento.
+</Callout>
+
+## Calculadora de Ratios en Vivo
+
+Utiliza este simulador para calcular ratios financieros esenciales en tiempo real:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [activoCorr, setActivoCorr] = useState(150000);
+  const [inventario, setInventario] = useState(60000);
+  const [pasivoCorr, setPasivoCorr] = useState(80000);
+
+  const razonCirc = activoCorr / pasivoCorr;
+  const pruebaAcido = (activoCorr - inventario) / pasivoCorr;
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Calculadora de Liquidez</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Activo Circulante ($)</label>
+          <input 
+            type="number" 
+            value={activoCorr} 
+            onChange={(e) => setActivoCorr(Number(e.target.value))}
+            style={{ width: '90%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Inventario ($)</label>
+          <input 
+            type="number" 
+            value={inventario} 
+            onChange={(e) => setInventario(Number(e.target.value))}
+            style={{ width: '90%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div style={{ gridColumn: 'span 2' }}>
+          <label style={{ fontSize: '11px', display: 'block' }}>Pasivo Circulante ($)</label>
+          <input 
+            type="number" 
+            value={pasivoCorr} 
+            onChange={(e) => setPasivoCorr(Number(e.target.value))}
+            style={{ width: '45%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131' }}>
+        <p><strong>Razón Circulante:</strong> {razonCirc.toFixed(2)}x {razonCirc >= 2.0 ? '✅ Aceptable' : '⚠️ Baja'}</p>
+        <p><strong>Prueba de Ácido:</strong> {pruebaAcido.toFixed(2)}x {pruebaAcido >= 1.0 ? '✅ Aceptable' : '⚠️ Vulnerable'}</p>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>

@@ -1,0 +1,101 @@
+---
+title: "Presupuestos y Pronósticos"
+description: "Herramientas clave para estimar las necesidades de efectivo a corto plazo y planificar el flujo de caja."
+section: planificacion
+order: 6
+---
+
+# Presupuestos y Pronósticos Financieros
+
+La planificación financiera a corto plazo se enfoca en asegurar que la empresa disponga de la liquidez necesaria para sostener sus operaciones diarias. La herramienta central de este proceso es el **Presupuesto de Efectivo** (o flujo de caja proyectado).
+
+## Pronóstico de Ventas
+
+El insumo fundamental de cualquier planificación financiera es el **Pronóstico de Ventas**. Dado que las ventas determinan la actividad de producción, compras, inventario y necesidades de personal, una sobreestimación o subestimación de las ventas afectará en cadena a todo el plan corporativo.
+
+- **Factores Internos:** Capacidad instalada de la planta, fuerza de ventas, promociones de marketing programadas, políticas de crédito.
+- **Factores Externos:** Condiciones del ciclo económico general, competencia en el sector, regulaciones gubernamentales, tasas de interés.
+
+---
+
+## El Presupuesto de Efectivo
+
+El presupuesto de efectivo es un estado financiero proyectado que detalla las **entradas de efectivo** y las **salidas de efectivo** planeadas durante un período de tiempo (usualmente de 3 a 12 meses).
+
+### Estructura Básica del Presupuesto
+
+```
+   Total Entradas de Efectivo (Ventas de contado, cobros a clientes, otros)
+(-) Total Salidas de Efectivo (Compras de materia prima, salarios, alquileres, intereses)
+(=) Flujo de Efectivo Neto del Período
+(+) Efectivo Inicial
+(=) Efectivo Final (Saldo antes de financiamiento mínimo)
+(-) Saldo de Efectivo Mínimo Deseado
+(=) Financiamiento Total Requerido (Si el saldo es negativo)
+   o Saldo Excedente de Efectivo (Si el saldo es positivo)
+```
+
+### Entradas vs Salidas de Efectivo
+- **Cobros a Clientes:** En empresas que venden a crédito, los cobros por ventas no coinciden con las ventas del mismo mes. Si la política de crédito es 30 días, las ventas de enero se cobran en febrero.
+- **Pagos a Proveedores:** Similarmente, las compras de insumos a crédito se liquidan de acuerdo con las condiciones acordadas de pago (ej. 30 o 60 días).
+
+<Callout type="info" title="Efectivo Mínimo Deseado">
+  Las empresas mantienen una reserva mínima de efectivo para contingencias o transacciones diarias. Si el efectivo final proyectado cae por debajo de este límite, el presupuesto indica que se debe contratar una línea de crédito de corto plazo para cubrir la brecha.
+</Callout>
+
+## Ejemplo de Programación de Cobros
+
+En este simulador interactivo puedes ver cómo se distribuyen los cobros a lo largo del tiempo de acuerdo con la política de crédito de la empresa:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [ventasEnero, setVentasEnero] = useState(100000);
+  const [ventasFebrero, setVentasFebrero] = useState(120000);
+  
+  // 60% contado, 40% a 30 días
+  const contadoEnero = ventasEnero * 0.6;
+  const creditoEneroCobradoFebrero = ventasEnero * 0.4;
+  
+  const contadoFebrero = ventasFebrero * 0.6;
+  const cobrosTotalesFebrero = contadoFebrero + creditoEneroCobradoFebrero;
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Programa de Cobros Proyectados</h3>
+      <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Ventas Enero ($)</label>
+          <input 
+            type="number" 
+            value={ventasEnero} 
+            onChange={(e) => setVentasEnero(Number(e.target.value))}
+            style={{ padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Ventas Febrero ($)</label>
+          <input 
+            type="number" 
+            value={ventasFebrero} 
+            onChange={(e) => setVentasFebrero(Number(e.target.value))}
+            style={{ padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131', fontSize: '13px' }}>
+        <p><strong>Cobros Enero (60% Contado):</strong> \${contadoEnero.toLocaleString()}</p>
+        <p><strong>Cobros Febrero Totales:</strong> \${cobrosTotalesFebrero.toLocaleString()}</p>
+        <ul style={{ color: '#a7a7a7', fontSize: '12px' }}>
+          <li>Cobro Contado Febrero (60%): \${contadoFebrero.toLocaleString()}</li>
+          <li>Cobro Crédito Enero (40%): \${creditoEneroCobradoFebrero.toLocaleString()}</li>
+        </ul>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>

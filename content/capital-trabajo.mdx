@@ -1,0 +1,117 @@
+---
+title: "Gestión del Capital de Trabajo"
+description: "Administración del activo y pasivo circulante de la empresa para equilibrar rentabilidad y riesgo de liquidez."
+section: activo-circulante
+order: 8
+---
+
+# Gestión del Capital de Trabajo
+
+El **capital de trabajo** (o capital de trabajo neto) se define como la diferencia entre los activos circulantes y los pasivos circulantes de una empresa.
+
+$$\text{Capital de Trabajo Neto} = \text{Activos Circulantes} - \text{Pasivos Circulantes}$$
+
+La meta de la administración del capital de trabajo es optimizar estas cuentas corrientes de manera que se logre un equilibrio satisfactorio entre la **rentabilidad** y el **riesgo** (la probabilidad de que la empresa no sea capaz de pagar sus deudas en su vencimiento).
+
+---
+
+## El Ciclo de Conversión del Efectivo (CCE)
+
+Una de las principales métricas cuantitativas para evaluar la eficiencia en la administración del capital de trabajo es el **Ciclo de Conversión del Efectivo**. Este indicador mide el tiempo transcurrido desde que la empresa paga la compra de materias primas hasta que cobra el efectivo resultante de la venta del producto terminado.
+
+El CCE se calcula combinando tres sub-ciclos operativos básicos:
+
+1. **Edad Promedio del Inventario (EPI):** Días promedio que el inventario permanece guardado o en producción.
+2. **Período Promedio de Cobro (PPC):** Días promedio que tardan los clientes en pagar sus facturas.
+3. **Período Promedio de Pago (PPP):** Días promedio que la empresa tarda en pagar a sus proveedores.
+
+### Fórmula del CCE
+
+$$\text{CCE} = \text{EPI} + \text{PPC} - \text{PPP}$$
+
+```
+   |<----------------------- Ciclo Operativo (CO) ---------------------->|
+   |                                                                     |
+---+------------------------------------+--------------------------------+---> Días
+Compra de                            Venta de                          Cobro de
+Materia Prima                        Productos                         Efectivo
+   |                                     |                               |
+   |<---------- EPI ---------->|<---------- PPC ---------->|
+   |                                                                     |
+   |<---- PPP ---->|<----------------- CCE ----------------------------->|
+   |               |                                                     |
+---+---------------+-----------------------------------------------------+---> Días
+                Pago de
+                Efectivo
+```
+
+### Estrategias de Reducción del CCE
+El analista financiero busca minimizar el CCE sin afectar la calidad operativa de la empresa. Esto se logra:
+- **Reduciendo el EPI:** Rotando el inventario más rápido (sistemas Just-In-Time o mejor cadena de suministro).
+- **Reduciendo el PPC:** Acelerando la cobranza de clientes (descuentos por pronto pago, análisis de crédito más estricto).
+- **Incrementando el PPP:** Extendiendo los plazos de pago a proveedores sin dañar la reputación crediticia ni incurrir en recargos por intereses.
+
+<Callout type="info" title="Riesgo de Insolvencia">
+  Un CCE excesivamente corto o negativo (donde los proveedores financian la totalidad del negocio, como ocurre en supermercados minoristas) es el escenario ideal de liquidez. Sin embargo, un inventario demasiado bajo incrementa el riesgo de desabasto y pérdida de ventas.
+</Callout>
+
+## Calculadora Interactiva de CCE
+
+Modifica las variables operativas de inventarios, cobros y pagos para ver el impacto inmediato en el Ciclo de Conversión del Efectivo:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [epi, setEpi] = useState(60); // Edad Promedio Inventario
+  const [ppc, setPpc] = useState(45); // Periodo Cobro
+  const [ppp, setPpp] = useState(35); // Periodo Pago
+
+  const co = epi + ppc; // Ciclo Operativo
+  const cce = co - ppp; // Ciclo Conversión Efectivo
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Simulador de Ciclo de Efectivo</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>EPI (Días)</label>
+          <input 
+            type="number" 
+            value={epi} 
+            onChange={(e) => setEpi(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>PPC (Días)</label>
+          <input 
+            type="number" 
+            value={ppc} 
+            onChange={(e) => setPpc(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>PPP (Días)</label>
+          <input 
+            type="number" 
+            value={ppp} 
+            onChange={(e) => setPpp(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131', fontSize: '13px' }}>
+        <p><strong>Ciclo Operativo (CO):</strong> {co} Días</p>
+        <p style={{ borderTop: '1px solid #313131', paddingTop: '10px', fontWeight: 'bold' }}>
+          CCE (Ciclo de Efectivo): {cce} Días {cce <= 60 ? '✅ Eficiente' : '⚠️ Excesivo'}
+        </p>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>

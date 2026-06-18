@@ -1,0 +1,116 @@
+---
+title: "Cuentas por Cobrar e Inventarios"
+description: "Modelos y políticas de crédito, cobranza e inventarios para optimizar la liquidez operativa."
+section: activo-circulante
+order: 9
+---
+
+# Cuentas por Cobrar e Inventarios
+
+Las **cuentas por cobrar** y los **inventarios** representan dos de las inversiones más significativas de activos corrientes en la mayoría de las empresas comerciales e industriales. Su correcta administración es vital para sostener la salud financiera a corto plazo.
+
+---
+
+## Administración de Cuentas por Cobrar
+
+Las cuentas por cobrar surgen de las ventas a crédito de la empresa. El volumen de estas cuentas está determinado por las **Políticas de Crédito y Cobranza**.
+
+### 1. Las Cinco "C" del Crédito
+Para evaluar si un cliente es sujeto de crédito, se analizan los siguientes criterios tradicionales:
+- **Carácter (Historial):** Disposición moral del cliente para pagar (referencias comerciales, historial crediticio).
+- **Capacidad:** Aptitud financiera para liquidar la deuda basada en sus ingresos o flujos de efectivo.
+- **Capital:** Respaldo financiero medido por el patrimonio o balance neto del cliente.
+- **Colateral (Garantía):** Activos ofrecidos para garantizar el cumplimiento de la obligación.
+- **Condiciones:** Entorno económico general y del sector que puede afectar la solvencia del deudor.
+
+### 2. Condiciones de Crédito
+Las condiciones estipulan el plazo del crédito y los incentivos para el pago anticipado. Un término común es `2/10 neto 30`:
+- **2% de descuento** si el cliente paga antes de los **10 días**.
+- Plazo máximo de crédito ordinario de **30 días** sin descuento.
+
+---
+
+## Administración de Inventarios
+
+El inventario actúa como un amortiguador entre la producción y la demanda. El objetivo de su gestión es asegurar el abasto continuo minimizando el costo total de adquisición y almacenamiento.
+
+### Costos de Inventarios
+- **Costos de Pedido:** Gastos administrativos de cotizar, colocar y recibir órdenes.
+- **Costos de Mantenimiento:** Almacenamiento, seguros, mermas, obsolescencia y costo de oportunidad del capital invertido.
+
+### Modelo del Lote Económico de Compra (LEC / EOQ)
+Es un modelo matemático clásico para calcular la cantidad óptima de pedido que minimiza los costos totales anuales de pedido y mantenimiento.
+
+$$\text{LEC} = \sqrt{\frac{2 \times D \times S}{H}}$$
+
+Donde:
+- $D$: Demanda anual en unidades.
+- $S$: Costo de pedido por orden.
+- $H$: Costo de mantenimiento anual por unidad.
+
+<Callout type="warning" title="Punto de Reorden">
+  Es el nivel de inventario en el cual se debe colocar un nuevo pedido para evitar desabasto antes de que llegue el pedido (tomando en cuenta el tiempo de entrega del proveedor y el inventario de seguridad).
+</Callout>
+
+## Simulador Interactivos de Lote Económico (LEC)
+
+Modifica las variables de demanda y costos para calcular el Lote Económico de Compra:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [demanda, setDemanda] = useState(12000); // Unidades anuales
+  const [costoOrden, setCostoOrden] = useState(25); // Costo por orden
+  const [costoMant, setCostoMant] = useState(2); // Costo mantenimiento por unidad
+
+  // LEC = sqrt(2 * D * S / H)
+  const lec = Math.sqrt((2 * demanda * costoOrden) / costoMant);
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Simulador de Lote Económico (LEC/EOQ)</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Demanda Anual (D)</label>
+          <input 
+            type="number" 
+            value={demanda} 
+            onChange={(e) => setDemanda(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Costo de Orden (S)</label>
+          <input 
+            type="number" 
+            value={costoOrden} 
+            onChange={(e) => setCostoOrden(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Costo Mantenimiento (H)</label>
+          <input 
+            type="number" 
+            value={costoMant} 
+            onChange={(e) => setCostoMant(Number(e.target.value))}
+            style={{ width: '80%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131', fontSize: '13px' }}>
+        <p style={{ fontWeight: 'bold' }}>
+          Cantidad Óptima de Pedido (LEC): {Math.round(lec)} Unidades
+        </p>
+        <p style={{ color: '#a7a7a7', fontSize: '11px' }}>
+          Realizar pedidos de este tamaño minimizará los costos agregados de ordenamiento y almacenamiento.
+        </p>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>

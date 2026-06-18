@@ -1,0 +1,97 @@
+---
+title: "Análisis Vertical y Horizontal"
+description: "Métodos comparativos clásicos para analizar la estructura interna de los estados financieros y su evolución en el tiempo."
+section: analisis-estados
+order: 4
+---
+
+# Análisis Vertical y Horizontal
+
+Para identificar anomalías o tendencias significativas en los estados financieros, los analistas emplean dos herramientas metodológicas fundamentales: el **Análisis Vertical** (estructura estática) y el **Análisis Horizontal** (evolución dinámica).
+
+## Análisis Vertical (Estructura Estática)
+
+El análisis vertical consiste en expresar cada cuenta de un estado financiero como un porcentaje de una cifra base común del mismo período.
+
+- **En el Balance General:** La cifra base suele ser el **Total de Activos** (o el Total de Pasivo + Patrimonio). Cada cuenta se divide entre el Total de Activos y se multiplica por 100.
+- **En el Estado de Resultados:** La cifra base es el total de **Ventas Netas** (o Ingresos Totales). Cada gasto y costo se evalúa como porcentaje de las ventas.
+
+### Utilidad Diagnóstica
+Permite evaluar la composición estructural de la empresa. Por ejemplo:
+- ¿Qué porcentaje del total de recursos está invertido en inventario? (Estructura de inversión).
+- ¿Qué porcentaje de las fuentes de recursos corresponde a deuda de corto plazo vs capital propio? (Estructura de financiamiento).
+- ¿Qué proporción de cada dólar vendido se consume en costo de ventas o gastos de distribución? (Eficiencia operativa).
+
+$$\% \text{ Cuenta} = \left( \frac{\text{Valor de la Cuenta}}{\text{Cifra Base del Período}} \right) \times 100$$
+
+---
+
+## Análisis Horizontal (Evolución Dinámica)
+
+El análisis horizontal compara los estados financieros de una empresa a lo largo de varios períodos consecutivos. Calcula la variación absoluta (en unidades monetarias) y la variación relativa (en porcentaje) de cada cuenta con respecto a un año base.
+
+### Fórmulas de Variación
+
+- **Variación Absoluta ($):**
+
+$$\text{Var. Absoluta} = \text{Valor Año Actual} - \text{Valor Año Base}$$
+
+- **Variación Relativa (%):**
+
+$$\text{Var. Relativa} = \left( \frac{\text{Valor Año Actual} - \text{Valor Año Base}}{\text{Valor Año Base}} \right) \times 100$$
+
+### Utilidad Diagnóstica
+Permite evaluar las tasas de crecimiento de la empresa y detectar incoherencias operativas. Por ejemplo, si las ventas netas crecieron un 5% pero los gastos de administración aumentaron un 30%, es un indicador claro de ineficiencia o falta de control de costos que requiere investigación.
+
+<Callout type="info" title="Análisis de Tendencias">
+  Cuando se analizan tres o más años, se puede calcular una serie de índices de tendencia asignando el valor del año base como el 100% y calculando los años subsiguientes en base a ese origen común.
+</Callout>
+
+## Ejemplo Interactivo
+
+Aquí puedes experimentar simulando la variación de ventas de un año a otro para ver cómo impacta el crecimiento porcentual:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [salesBase, setSalesBase] = useState(120000);
+  const [salesCurrent, setSalesCurrent] = useState(135000);
+
+  const absoluteVar = salesCurrent - salesBase;
+  const relativeVar = ((salesCurrent - salesBase) / salesBase) * 100;
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Simulador de Variación Horizontal</h3>
+      <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '12px', display: 'block' }}>Ventas Año Base ($)</label>
+          <input 
+            type="number" 
+            value={salesBase} 
+            onChange={(e) => setSalesBase(Number(e.target.value))}
+            style={{ padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '12px', display: 'block' }}>Ventas Año Actual ($)</label>
+          <input 
+            type="number" 
+            value={salesCurrent} 
+            onChange={(e) => setSalesCurrent(Number(e.target.value))}
+            style={{ padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131' }}>
+        <p><strong>Variación Absoluta:</strong> \${absoluteVar.toLocaleString()}</p>
+        <p><strong>Variación Relativa:</strong> {relativeVar.toFixed(2)}%</p>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>

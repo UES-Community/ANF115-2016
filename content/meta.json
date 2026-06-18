@@ -1,0 +1,8 @@
+{
+  "sections": [
+    { "id": "introduccion", "title": "1. Introducción a las Finanzas" },
+    { "id": "analisis-estados", "title": "2. Técnicas de Análisis Financiero" },
+    { "id": "planificacion", "title": "3. Planificación Financiera" },
+    { "id": "activo-circulante", "title": "4. Administración del Activo Circulante" }
+  ]
+}

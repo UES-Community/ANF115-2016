@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  /* Colors */
+  --color-soft-indigo: #6798ff;
+  --color-pure-black: #000000;
+  --color-carbon: #0a0a0a;
+  --color-graphite: #141414;
+  --color-iron: #1e1e1e;
+  --color-slate-edge: #313131;
+  --color-smoke: #454545;
+  --color-mist: #7c7c7c;
+  --color-ash: #a7a7a7;
+  --color-bone: #ffffff;
+
+  /* Surfaces mapped to names */
+  --surface-canvas: var(--color-carbon);
+  --surface-card: var(--color-graphite);
+  --surface-elevated: var(--color-iron);
+  --surface-border: var(--color-slate-edge);
+  --surface-inverted: var(--color-bone);
+
+  /* Shadcn standard theme tokens mapped to Dovetail */
+  --color-background: var(--color-carbon);
+  --color-foreground: var(--color-bone);
+  
+  --color-muted: var(--color-graphite);
+  --color-muted-foreground: var(--color-ash);
+  
+  --color-border: var(--color-iron);
+  --color-input: var(--color-iron);
+  --color-ring: var(--color-soft-indigo);
+  
+  --color-primary: var(--color-bone);
+  --color-primary-foreground: var(--color-carbon);
+  
+  --color-secondary: var(--color-graphite);
+  --color-secondary-foreground: var(--color-bone);
+  
+  --color-accent: var(--color-graphite);
+  --color-accent-foreground: var(--color-bone);
+  
+  --color-destructive: #991b1b;
+  --color-destructive-foreground: #fca5a5;
+  
+  --color-card: var(--color-graphite);
+  --color-card-foreground: var(--color-bone);
+  
+  --color-popover: var(--color-graphite);
+  --color-popover-foreground: var(--color-bone);
+  
+  --color-sidebar: var(--color-carbon);
+  --color-sidebar-foreground: var(--color-bone);
+  --color-sidebar-border: var(--color-iron);
+
+  /* Code Callouts */
+  --color-callout-info: var(--color-graphite);
+  --color-callout-info-border: var(--color-soft-indigo);
+  --color-callout-warning: var(--color-graphite);
+  --color-callout-warning-border: #facc15;
+  --color-callout-tip: var(--color-graphite);
+  --color-callout-tip-border: var(--color-soft-indigo);
+  --color-callout-danger: var(--color-graphite);
+  --color-callout-danger-border: #f87171;
+}
+
+@theme {
+  /* Colors */
+  --color-soft-indigo: var(--color-soft-indigo);
+  --color-pure-black: var(--color-pure-black);
+  --color-carbon: var(--color-carbon);
+  --color-graphite: var(--color-graphite);
+  --color-iron: var(--color-iron);
+  --color-slate-edge: var(--color-slate-edge);
+  --color-smoke: var(--color-smoke);
+  --color-mist: var(--color-mist);
+  --color-ash: var(--color-ash);
+  --color-bone: var(--color-bone);
+
+  /* Typography — Font Families */
+  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Typography — Scale & Leading & Tracking */
+  --text-caption: 12px;
+  --leading-caption: 1.4;
+  --tracking-caption: 0.85px;
+
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.57;
+  --tracking-body-sm: -0.25px;
+
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --tracking-body: -0.25px;
+
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.33;
+  --tracking-heading-sm: -0.42px;
+
+  --text-heading: 24px;
+  --leading-heading: 1.29;
+  --tracking-heading: -0.6px;
+
+  --text-heading-lg: 40px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: -0.84px;
+
+  --text-display-sm: 56px;
+  --leading-display-sm: 1.14;
+  --tracking-display-sm: -1.74px;
+
+  --text-display: 64px;
+  --leading-display: 1.13;
+  --tracking-display: -2.3px;
+
+  /* Named Radii */
+  --radius-tags: 4px;
+  --radius-cards: 8px;
+  --radius-inputs: 8px;
+  --radius-buttons: 8px;
+  --radius-navpills: 9999px;
+  
+  --radius-lg: 8px;
+  --radius-md: 4px;
+}
+
+@layer base {
+  * {
+    @apply border-iron;
+  }
+
+  body {
+    background-color: var(--color-carbon);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@layer utilities {
+  .blueprint-grid {
+    background-color: var(--color-carbon);
+    background-image: 
+      linear-gradient(var(--color-iron) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-iron) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .prose-course {
+    @apply prose prose-invert max-w-none;
+    @apply prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-bone;
+    @apply prose-h1:text-heading-lg prose-h2:text-heading prose-h3:text-heading-sm;
+    @apply prose-p:leading-relaxed prose-p:text-ash;
+    @apply prose-a:text-soft-indigo prose-a:no-underline hover:prose-a:underline;
+    @apply prose-code:rounded prose-code:bg-graphite prose-code:border prose-code:border-iron prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none;
+    @apply prose-pre:p-0 prose-pre:bg-transparent;
+    @apply prose-li:marker:text-soft-indigo;
+    font-family: var(--font-sans);
+  }
+}

@@ -1,0 +1,111 @@
+---
+title: "Estados Financieros Pro Forma"
+description: "Modelos para proyectar el Estado de Resultados y Balance General basándose en estimaciones de ventas y factores de proporcionalidad."
+section: planificacion
+order: 7
+---
+
+# Estados Financieros Pro Forma
+
+Los **estados financieros pro forma** son proyecciones del Balance General y del Estado de Resultados futuros de la empresa. Se utilizan de forma extensiva para planificar las necesidades de financiamiento a largo plazo (adquisición de maquinaria, emisión de acciones) y evaluar la rentabilidad esperada antes de implementar una estrategia corporativa.
+
+---
+
+## Elaboración del Estado de Resultados Pro Forma
+
+El método más simple y utilizado es el **Método del Porcentaje de Ventas**. Este procedimiento consiste en estimar las cuentas del estado de resultados como un porcentaje constante de las ventas proyectadas.
+
+### Procedimiento
+1. Calcular el porcentaje histórico de cada cuenta con respecto a las ventas del año actual.
+   
+   $$\% \text{ Costo} = \frac{\text{Costo de Ventas Actual}}{\text{Ventas Actuales}}$$
+
+2. Multiplicar este porcentaje por el monto de ventas proyectadas para el próximo año.
+
+$$\text{Costo Pro Forma} = \% \text{ Costo} \times \text{Ventas Proyectadas}$$
+
+### Limitación
+Este método asume que todos los costos son estrictamente variables. En la realidad, existen **costos fijos** (como el alquiler de oficinas o salarios base) que no cambiarán aunque las ventas aumenten. Por ello, el analista financiero debe segmentar los costos fijos y variables para mayor precisión.
+
+---
+
+## Elaboración del Balance General Pro Forma
+
+Existen dos enfoques principales para proyectar el balance general: el método simplificado del porcentaje de ventas y el método detallado de juicio.
+
+### Método Simplificado (Efecto Cuadre: Fondos Externos Requeridos)
+Bajo este enfoque, se asume que las cuentas operativas del balance (como cuentas por cobrar, inventarios y cuentas por pagar) cambian en proporción directa a las ventas.
+
+Al proyectar de forma independiente los activos, pasivos y el patrimonio, es normal que el balance general **no cuadre**. Esta diferencia se conoce como **Fondos Externos Requeridos (FER)** o *Needs of External Financing*:
+
+$$\text{FER} = \text{Activo Proyectado} - \text{Pasivo Proyectado} - \text{Patrimonio Proyectado}$$
+
+- **Si FER > 0 (Positivo):** La empresa necesita obtener financiamiento externo adicional (préstamos bancarios, venta de bonos, emisión de acciones) para sostener el nivel proyectado de ventas.
+- **Si FER < 0 (Negativo):** La empresa generará más efectivo del necesario de forma interna, creando un saldo excedente que puede utilizar para reducir deuda o invertir en valores negociables.
+
+<Callout type="warning" title="Efecto de la Capacidad Operativa">
+  Si la planta industrial de la empresa opera por debajo del 100% de su capacidad instalada, un incremento en las ventas no requerirá la adquisición inmediata de más Activos Fijos. Los activos fijos solo se incrementan proporcionalmente una vez que se rebasa la capacidad de producción instalada.
+</Callout>
+
+## Calculadora Interactiva de FER
+
+Estimación simplificada de Fondos Externos Requeridos basándose en variaciones de ventas:
+
+<Sandbox 
+  template="react"
+  files={{
+    "App.js": `import React, { useState } from 'react';
+
+export default function App() {
+  const [activosActuales, setActivosActuales] = useState(500000);
+  const [pasivosActuales, setPasivosActuales] = useState(200000);
+  const [patrimonioActual, setPatrimonioActual] = useState(300000);
+  const [crecimientoVentas, setCrecimientoVentas] = useState(20); // 20%
+  const [utilidadNetaProy, setUtilidadNetaProy] = useState(50000);
+  const [dividendosProy, setDividendosProy] = useState(15000);
+
+  // Activos y pasivos corrientes suben con ventas
+  const factor = 1 + (crecimientoVentas / 100);
+  const activosProy = activosActuales * factor;
+  const pasivosProy = pasivosActuales * factor;
+  const utilidadesRetenidasProy = utilidadNetaProy - dividendosProy;
+  const patrimonioProy = patrimonioActual + utilidadesRetenidasProy;
+
+  const fer = activosProy - pasivosProy - patrimonioProy;
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', background: '#141414', color: '#fff' }}>
+      <h3 style={{ borderBottom: '1px solid #313131', pb: '10px' }}>Estimador de FER</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', margin: '20px 0' }}>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Crecimiento Ventas (%)</label>
+          <input 
+            type="number" 
+            value={crecimientoVentas} 
+            onChange={(e) => setCrecimientoVentas(Number(e.target.value))}
+            style={{ width: '90%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+        <div>
+          <label style={{ fontSize: '11px', display: 'block' }}>Utilidad Neta Proyectada ($)</label>
+          <input 
+            type="number" 
+            value={utilidadNetaProy} 
+            onChange={(e) => setUtilidadNetaProy(Number(e.target.value))}
+            style={{ width: '90%', padding: '6px', background: '#1e1e1e', border: '1px solid #313131', color: '#fff' }}
+          />
+        </div>
+      </div>
+      <div style={{ background: '#0a0a0a', padding: '15px', borderRadius: '4px', border: '1px solid #313131', fontSize: '13px' }}>
+        <p><strong>Activos Proyectados:</strong> \${activosProy.toLocaleString()}</p>
+        <p><strong>Pasivos Proyectados:</strong> \${pasivosProy.toLocaleString()}</p>
+        <p><strong>Patrimonio Proyectado:</strong> \${patrimonioProy.toLocaleString()}</p>
+        <p style={{ borderTop: '1px solid #313131', paddingTop: '10px', fontWeight: 'bold' }}>
+          FER: \${fer.toLocaleString()} {fer > 0 ? '⚠️ Necesita financiamiento' : '✅ Financiamiento cubierto'}
+        </p>
+      </div>
+    </div>
+  );
+}`
+  }}
+/>
